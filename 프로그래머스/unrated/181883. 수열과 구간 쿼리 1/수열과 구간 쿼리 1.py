@@ -1,6 +1,4 @@
 def solution(arr, queries):
-    answer = arr
-    for s,e in queries:
-        for i in range(s,e+1):
-            answer[i] += 1
-    return answer
+    for (s, e) in queries:
+        arr = [a+1 if s <= i <= e else a for i, a in enumerate(arr)]
+    return arr
