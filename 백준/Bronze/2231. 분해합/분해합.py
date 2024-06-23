@@ -1,13 +1,15 @@
-n = int(input())
+N = input()
+intN = int(N)
 
-for i in range(1, n+1):
-    tmp = i
-    for s in str(i):
-        tmp += int(s)
+minimum = max(1, intN - 9 * len(N))
 
-    if tmp == n:
-        print(i)
+for s in range(minimum, intN + 1):
+    tmp = s
+    sums = sum(map(int, list(str(s))))
+    tmp += sums
+
+    if tmp == intN:
+        print(s)
         break
-    elif i == n:
+    elif s == intN:
         print(0)
-
