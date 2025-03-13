@@ -1,29 +1,28 @@
 import sys
 
+MAX = 1000001
 
-def get_primes(n):
-    end = int(n ** 0.5) + 1
-    arr = [i for i in range(n + 1)]
-    for i in range(2, end):
-        if arr[i] == 0:
-            continue
-        for j in range(i * i, n + 1, i):
-            arr[j] = 0
-    arr[0] = 0
-    arr[1] = 0
-    return arr, [i for i in arr[2:] if i]
+primes = []
+check = [True for _ in range(MAX+1)]
+check[0] = False
+check[1] = False
 
+for i in range(2, int(MAX * 0.5) + 1):
+    if check[i]:
+        primes.append(i)
+        for j in range(i * i, MAX+1, i):
+            check[j] = False
 
-input = sys.stdin.readline
+N = int(input())
 
-n = int(input())
-arr, primes = get_primes(1000000)
-
-for _ in range(n):
-    num = int(input())
+for _ in range(N):
     cnt = 0
+    num = int(input())
     for p in primes:
-        if p > num // 2: break
-        if arr[num - p]:
-            cnt += 1
+        if p > num//2:
+            break
+
+        if check[num - p]:
+            cnt +=1
+
     print(cnt)
