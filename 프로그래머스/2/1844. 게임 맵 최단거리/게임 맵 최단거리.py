@@ -3,26 +3,23 @@ from collections import deque
 
 def solution(maps):
     answer = 0
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, 1, -1]
+
     m = len(maps)
     n = len(maps[0])
-    r, c = 0, 0
-    # bfs
-    q = deque([[r, c]])
-    visited = set()
-    while q:
-        r, c = q.popleft()
-        visited.add((r, c))
-        if r + 1 <= m - 1 and maps[r + 1][c] == 1 and (r + 1, c) not in visited:
-            maps[r + 1][c] = maps[r][c] + 1
-            q.append([r + 1, c])
-        if r - 1 >= 0 and maps[r - 1][c] == 1 and (r - 1, c) not in visited:
-            maps[r - 1][c] = maps[r][c] + 1
-            q.append([r - 1, c])
-        if c + 1 <= n - 1 and maps[r][c + 1] == 1 and (r, c + 1) not in visited:
-            maps[r][c + 1] = maps[r][c] + 1
-            q.append([r, c + 1])
-        if c - 1 >= 0 and maps[r][c - 1] == 1 and (r, c - 1) not in visited:
-            maps[r][c - 1] = maps[r][c] + 1
-            q.append([r, c - 1])
+    q = deque([[0, 0]])
 
-    return maps[m - 1][n - 1] if maps[m - 1][n - 1] != 1 else -1
+    # BFS
+    while q:
+        x, y = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < m and 0 <= ny < n and maps[nx][ny] == 1:
+                if nx == 0 and ny == 0 :
+                    continue
+                q.append([nx, ny])
+                maps[nx][ny] = maps[x][y] + 1
+
+    return maps[m-1][n-1] if maps[m-1][n-1] != 1 else -1
