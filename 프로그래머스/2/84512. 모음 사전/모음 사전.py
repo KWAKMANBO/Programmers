@@ -1,5 +1,12 @@
 def solution(word):
     answer = 0
-    for i, n in enumerate(word):
-        answer += (5 ** (5 - i) // 4) * "AEIOU".index(word[i]) + 1
+    nums = [781, 156, 31, 6, 1]
+    word += (5 - len(word)) * '0'
+
+    for i in range(5):
+        if word[i] != '0':
+            answer += 'AEIOU'.index(word[i]) * nums[i] + 1
+        else:
+            break
+
     return answer
