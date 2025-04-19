@@ -3,9 +3,9 @@ def solution(prices):
     for i in range(len(prices)):
         answer.append(0)
         for j in range(i + 1, len(prices)):
-            if prices[j] >= prices[i]:
-                answer[i] += 1
-            else:
-                answer[i] += 1
+            if prices[i] > prices[j]:
+                answer[i] = j-i
                 break
+            if j == len(prices)-1:
+                answer[i] = j - i
     return answer
