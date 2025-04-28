@@ -1,24 +1,11 @@
 import sys
 
+input = sys.stdin.readline
+
 s = input()
+cnt = 0
+for i in range(len(s) - 1):
+    if s[i] != s[i + 1]:
+        cnt += 1
 
-zero_group_cnt = 0
-one_group_cnt = 0
-cur = True
-
-if s[0] == '1':
-    one_group_cnt += 1
-    cur = True
-else:
-    zero_group_cnt += 1
-    cur = False
-
-for i in s:
-    if cur and i == '0':
-        zero_group_cnt += 1
-        cur = False
-    elif not cur and i == '1':
-        one_group_cnt += 1
-        cur = True
-
-print(zero_group_cnt if zero_group_cnt < one_group_cnt else one_group_cnt)
+print(cnt // 2)
