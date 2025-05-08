@@ -1,55 +1,61 @@
 import copy
+import sys
 from collections import deque
 
-dx = [0, 0, -1, 1]
-dy = [-1, 1, 0, 0]
-graph = []
-n, m = map(int, input().split())
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+
+board = []
 answer = 0
 
 
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+
 def bfs():
-    queue = deque()
-    tmp_graph = copy.deepcopy(graph)
+    q = deque()
+    tmp = copy.deepcopy(board)
+    for i in range(N):
+        for j in range(M):
+            if tmp[i][j] == 2:
+                q.append((i, j))
 
-    for i in range(n):
-        for j in range(m):
-            if tmp_graph[i][j] == 2:
-                queue.append((i, j))
-    while queue:
-        x, y = queue.popleft()
-
+    while q:
+        x, y = q.popleft()
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+            nx, ny = x + dx[i], y + dy[i]
+            if -1 < nx < N and -1 < ny < M:
+                if tmp[nx][ny] == 0:
+                    tmp[nx][ny] = 2
+                    q.append((nx, ny))
 
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                continue
-            if tmp_graph[nx][ny] == 0:
-                tmp_graph[nx][ny] = 2
-                queue.append((nx, ny))
     global answer
     cnt = 0
-    for i in range(n):
-        cnt += tmp_graph[i].count(0)
+    for i in tmp:
+        for j in i:
+            if j == 0:
+                cnt += 1
 
     answer = max(answer, cnt)
 
 
-def makeWall(cnt):
+def make_wall(cnt):
     if cnt == 3:
         bfs()
         return
 
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j] == 0:
-                graph[i][j] = 1
-                makeWall(cnt + 1)
-                graph[i][j] = 0
+    for i in range(N):
+        for j in range(M):
+            if board[i][j] == 0:
+                board[i][j] = 1
+                make_wall(cnt + 1)
+                board[i][j] = 0
 
+for _ in range(N):
+    board.append(list(map(int, input().split())))
 
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-makeWall(0)
+make_wall(0)
 print(answer)
