@@ -1,61 +1,66 @@
-import copy
 import sys
 from collections import deque
+from itertools import combinations
+import copy
 
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
 
+# 전체 map을 저장할 board
 board = []
-answer = 0
+# board에서 0인 즉 비어 있는 공간의 좌표를 저장할 리스트
+empties = []
+# virus의 좌표를 저장할 리스트
+virus = []
+# 3개의벽을 세운 좌표를 저장할 리스트
+wall_combinations = []
+
+for i in range(N):
+    line = list(map(int, input().split()))
+    board.append(line)
+    # virus의 좌표와, 비어 있는 곳의 좌표를 저장
+    for j in range(M):
+        if line[j] == 0:
+            empties.append((i, j))
+        if line[j] == 2:
+            virus.append((i, j))
 
 
+def infect_virus_bfs(maps):
+    queue = deque(virus)
+    while queue:
+        x, y = queue.popleft()
+        for dir in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            nx = x + dir[0]
+            ny = y + dir[1]
+            if nx < 0 or ny < 0 or nx >= N or ny >= M:
+                continue
+            if maps[nx][ny] == 0:
+                maps[nx][ny] = 2
+                queue.append((nx, ny))
+    return maps
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-
-def bfs():
-    q = deque()
-    tmp = copy.deepcopy(board)
+def count_safe_area(maps):
+    count = 0
     for i in range(N):
         for j in range(M):
-            if tmp[i][j] == 2:
-                q.append((i, j))
-
-    while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx, ny = x + dx[i], y + dy[i]
-            if -1 < nx < N and -1 < ny < M:
-                if tmp[nx][ny] == 0:
-                    tmp[nx][ny] = 2
-                    q.append((nx, ny))
-
-    global answer
-    cnt = 0
-    for i in tmp:
-        for j in i:
-            if j == 0:
-                cnt += 1
-
-    answer = max(answer, cnt)
+            if maps[i][j] == 0:
+                count += 1
+    return count
 
 
-def make_wall(cnt):
-    if cnt == 3:
-        bfs()
-        return
+def solve(walls):
+    tmp_board = copy.deepcopy(board)
+    for x, y in walls:
+        tmp_board[x][y] = 1
+    tmp_board = infect_virus_bfs(tmp_board)
+    return count_safe_area(tmp_board)
 
-    for i in range(N):
-        for j in range(M):
-            if board[i][j] == 0:
-                board[i][j] = 1
-                make_wall(cnt + 1)
-                board[i][j] = 0
 
-for _ in range(N):
-    board.append(list(map(int, input().split())))
+wall_combinations = combinations(empties, 3)
 
-make_wall(0)
-print(answer)
+result = 0
+for c in wall_combinations:
+    result = max(result, solve(c))
+print(result)
