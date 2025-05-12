@@ -12,7 +12,6 @@ graph = [
 visited = [0] * len(graph)
 
 
-
 def dfs(startNode, graph, visited, answer):
     if visited[startNode - 1] == 0:
         visited[startNode - 1] = 1
@@ -20,11 +19,9 @@ def dfs(startNode, graph, visited, answer):
 
     for node in graph[startNode - 1]:
         if visited[node - 1] == 0:
-            dfs(node, graph, visited,answer)
+            dfs(node, graph, visited, answer)
 
     return answer
 
 
-
-
-print(dfs(1, graph, visited,[]))
+print(dfs(1, graph, visited, []))
