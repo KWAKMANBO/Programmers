@@ -43,6 +43,7 @@ while turn_cnt != 4:
             board[nx][ny] = 2
             x, y = nx, ny
             count += 1
+            turn_cnt = 0
         else:
             turn_cnt += 1
 
