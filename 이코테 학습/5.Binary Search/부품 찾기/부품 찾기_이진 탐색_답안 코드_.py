@@ -1,3 +1,10 @@
+
+# Input
+# 5
+# 8 3 7 9 2
+# 3
+# 5 7 9
+
 def binary_search(array, target, start, end):
     while start <= end:
         mid = (start + end) // 2
@@ -6,7 +13,7 @@ def binary_search(array, target, start, end):
         elif array[mid] > target:
             end = mid - 1
         else:
-            start = mid - 1
+            start = mid + 1
     return None
 
 
