@@ -2,6 +2,24 @@
 # 4 6
 # 19 15 10 17
 
-# 이진 탐색을 어떻게 적용할까가 고민이였음
-# 내가 생각한 방법
-    # 주어진 떡 리스트를 정렬하고
+n, m = map(int, input().split())
+array = list(map(int, input().split()))
+
+start = 0
+end = max(array)
+
+result = 0
+while start <= end:
+    total = 0
+    mid = (start + end) // 2
+    for x in array:
+        if x > mid:
+            total += x - mid
+
+    if total < m:
+        end = mid - 1
+    else:
+        result = mid
+        start = mid + 1
+
+print(result)
