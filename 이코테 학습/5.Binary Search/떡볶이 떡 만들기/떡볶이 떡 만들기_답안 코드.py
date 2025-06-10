@@ -20,6 +20,9 @@ while start <= end:
         end = mid - 1
     else:
         result = mid
+
+        if total == m:
+            break
         start = mid + 1
 
 print(result)
