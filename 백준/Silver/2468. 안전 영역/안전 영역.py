@@ -36,7 +36,7 @@ for _ in range(N):
     board.append(tmp)
 
 max_cnt = 0
-for i in range(0, maximum + 1):
+for i in range(minimum-1, maximum + 1):
     visited = [[0] * N for _ in range(N)]
     cnt = 0
     for j in range(N):
