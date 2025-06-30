@@ -21,5 +21,5 @@ while start < end:
         start += 1
     else:
         answer += 1
-        start += 1
+        end -=1
 print(answer)
