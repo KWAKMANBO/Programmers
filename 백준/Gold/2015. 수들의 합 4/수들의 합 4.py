@@ -2,22 +2,22 @@ import sys
 
 input = sys.stdin.readline
 
-A, N = map(int, input().split())
+N, K = map(int, input().split())
+
 nums = list(map(int, input().split()))
-
 dict = {0: 1}
-
+num_sum = 0
 answer = 0
-sum = 0
-for i in range(A):
-    sum += nums[i]
 
-    if sum - N in dict:
-        answer += dict[sum - N]
+for i in range(N):
+    num_sum += nums[i]
 
-    if sum in dict:
-        dict[sum] += 1
+    if num_sum - K in dict:
+        answer += dict[num_sum - K]
+
+    if num_sum in dict:
+        dict[num_sum] += 1
     else:
-        dict[sum] = 1
+        dict[num_sum] = 1
 
 print(answer)
