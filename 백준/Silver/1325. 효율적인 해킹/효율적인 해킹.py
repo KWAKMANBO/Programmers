@@ -1,23 +1,21 @@
 import sys
-from collections import deque
+
 
 input = sys.stdin.readline
 
 
-def bfs(start_node):
-    queue = deque([start_node])
-    visited = [False] * (N + 1)
-    visited[start_node] = True
-    count = 1
-
-    while queue:
-        node = queue.popleft()
+def dfs(start_node):
+    cnt = 1
+    visited[start_node] = 1
+    stack = [start_node]
+    while stack:
+        node = stack.pop()
         for n in graph[node]:
-            if visited[n] == False:
-                visited[n] = True
-                queue.append(n)
-                count += 1
-    return count
+            if visited[n] == 0:
+                stack.append(n)
+                visited[n] = 1
+                cnt += 1
+    return cnt
 
 
 N, M = map(int, input().split())
@@ -31,10 +29,11 @@ for _ in range(M):
 answer = [0] * (N + 1)
 
 for i in range(1, N + 1):
-    answer[i] = bfs(i)
+    visited = [0] * (N + 1)
+    answer[i] = dfs(i)
 
 max_cnt = max(answer)
 
-for i in range(1,N+1):
+for i in range(1, N + 1):
     if answer[i] == max_cnt:
         print(i, end=" ")
