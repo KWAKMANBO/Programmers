@@ -22,8 +22,6 @@ def solve(n):
 
     return dp[n]
 
-    return dp[n]
-
 
 solve(N)
 print(dp[N])
