@@ -13,7 +13,7 @@ def solve(n):
     if dp[n] != 0:
         return dp[n]
 
-    dp[n] = solve(n - 2) * 2 + solve(n - 1)
+    dp[n] = (solve(n - 2) * 2 + solve(n - 1)) % 796796
     return dp[n]
 
 
