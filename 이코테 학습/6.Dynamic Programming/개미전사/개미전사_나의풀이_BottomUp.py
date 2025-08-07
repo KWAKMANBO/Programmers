@@ -10,7 +10,7 @@ camps = [0] + list(map(int, input().split()))
 dp = [0] * (N + 1)
 
 dp[1] = camps[1]
-dp[2] = camps[2]
+dp[2] = max(camps[2], dp[1])
 
 for i in range(3, N + 1):
     dp[i] = max(dp[i - 1], dp[i - 2] + camps[i])

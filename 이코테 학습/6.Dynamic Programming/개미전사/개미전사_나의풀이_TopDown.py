@@ -6,7 +6,7 @@ N = int(input())
 dp = [0] * (N + 1)
 camps = [0] + list(map(int, input().split()))
 dp[1] = camps[1]
-dp[2] = camps[2]
+dp[2] = max(camps[2], dp[1])
 
 
 def solve(n):
@@ -15,4 +15,6 @@ def solve(n):
 
     dp[n] = max(solve(n - 1), solve(n - 2) + camps[n])
     return dp[n]
+
+
 print(solve(N))
