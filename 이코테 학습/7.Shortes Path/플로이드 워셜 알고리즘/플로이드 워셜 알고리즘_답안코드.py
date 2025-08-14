@@ -1,3 +1,13 @@
+# Input
+# 4
+# 7
+# 1 2 4
+# 1 4 6
+# 2 1 3
+# 2 3 7
+# 3 1 5
+# 3 4 4
+# 4 3 2
 import sys
 
 input = sys.stdin.readline
@@ -21,4 +31,13 @@ for _ in range(m):
 for k in range(1,n+1):
     for a in range(1,n+1):
         for b in range(1,n+1):
-            graph[a][b] = min(graph[a][b], graph[a][k] )
+            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+for a in range(1, n+1):
+    for b in range(1, n+1):
+        if graph[a][b] == INF:
+            print("INFINITY", end = " ")
+        else:
+            print(graph[a][b], end = " ")
+
+    print()
