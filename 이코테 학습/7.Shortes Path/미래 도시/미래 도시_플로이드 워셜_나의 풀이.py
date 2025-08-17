@@ -37,5 +37,5 @@ for k in range(1, N + 1):
             if i == j:
                 continue
             graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
-
-print(graph[1][K] + graph[K][X])
+answer = graph[1][K] + graph[K][X]
+print(answer if answer < INF else -1)
