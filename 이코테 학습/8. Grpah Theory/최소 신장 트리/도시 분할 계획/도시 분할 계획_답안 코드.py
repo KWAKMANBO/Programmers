@@ -12,7 +12,10 @@
 # 6 5 3
 # 4 5 3
 # 6 7 4
-#
+
+import sys
+
+input = sys.stdin.readline
 
 def find_parent(parent, x):
     if parent[x] != x:
