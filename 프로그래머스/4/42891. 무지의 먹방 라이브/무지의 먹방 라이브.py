@@ -7,19 +7,20 @@ def solution(food_times, k):
     if sum(food_times) <= k:
         return -1
 
+    q = []
+    for i in range(len(food_times)):
+        heapq.heappush(q, (food_times[i], i + 1))
+
+    # 총 소요한 시간
+    sum_value = 0
+    # 이전 푸드의 소요시간
+    previous = 0
     length = len(food_times)
-    hq = []
-    for i in range(length):
-        heapq.heappush(hq, (food_times[i], i + 1))
+    while sum_value + (q[0][0] - previous) * length <= k:
+        now = heapq.heappop(q)[0]
+        sum_value = sum_value + (now - previous) * length
+        length -= 1
+        previous = now
 
-    spending_time = 0
-    previous_time = 0
-
-    while spending_time + (hq[0][0] - previous_time) * length <= k:
-        now = heapq.heappop(hq)
-        spending_time += (now[0] - previous_time) * length
-        length = len(hq)
-        previous_time = now[0]
-
-    hq.sort(key=lambda x: x[1])
-    return hq[(k - spending_time) % length][1]
+    q.sort(key=lambda x: x[1])
+    return q[(k - sum_value) % length][1]
