@@ -42,3 +42,4 @@ def solution(key, lock):
                     for j  in range(m):
                         new_lock[x+i][y+j] -= key[i][j]
     return False
+
