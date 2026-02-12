@@ -1,12 +1,14 @@
+import sys
+
+input = sys.stdin.readline
+
 N = int(input())
 
-
 felindromes = []
-
+cnt = 0
 for _ in range(N):
-    tmp = input()
+    tmp = input().strip()
     if tmp == tmp[::-1]:
-        felindromes.append(tmp)
-length = len(felindromes)
+        cnt +=1
 
-print(length * (length - 1))
+print(cnt * (cnt- 1))
