@@ -19,11 +19,12 @@ for c in cnt:
 
 y = "YES"
 n = "NO"
-if M == 1:
-    print(y)
-elif N < odd_nums_cnt:
+
+if N < odd_nums_cnt:
     print(n)
 elif odd_nums_cnt % 2 == 1 and N % 2 == 0:
     print(n)
 elif M % 2 == 0 and odd_nums_cnt != 0:
     print(n)
+else:
+    print(y)
