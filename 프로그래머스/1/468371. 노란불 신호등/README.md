@@ -1,10 +1,10 @@
 # [level 1] 노란불 신호등 - 468371 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/468371?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/468371) 
 
 ### 성능 요약
 
-메모리: 9.24 MB, 시간: 315.03 ms
+메모리: 9.17 MB, 시간: 350.24 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 03월 31일 13:35:14
+2026년 04월 01일 19:41:50
 
 ### 문제 설명
 

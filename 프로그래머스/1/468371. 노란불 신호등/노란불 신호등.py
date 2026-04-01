@@ -1,39 +1,30 @@
+import math
+
+
 def solution(signals):
-    def gcd(a, b):
-        while b:
-            a, b = b, a % b
-        return a
+    periods = [0] * len(signals)
 
-    def lcm(a, b):
-        return (a * b) // gcd(a, b)
-
-    L = len(signals)
-    LCM = 1
-
-    periods = [0] * L
-
-    # 주기 계산
-    for i in range(L):
+    MAX_SECOND = 1
+    for i in range(len(signals)):
         periods[i] = sum(signals[i])
-        LCM = lcm(LCM, periods[i])
+        MAX_SECOND = (MAX_SECOND * periods[i]) // math.gcd(MAX_SECOND, periods[i])
 
-    board = []
-    for i in range(L):
-        g = signals[i][0]
-        y = signals[i][1]
-
+    yellow_board = []
+    for i in range(len(signals)):
         tmp = [0] * periods[i]
+        g, y = signals[i][0], signals[i][1]
 
-        for j in range(g, g + y):
-            tmp[j] = 1
-        board.append(tmp)
+        for i in range(g, g + y):
+            tmp[i] = 1
 
-    for t in range(1, LCM + 1):
+        yellow_board.append(tmp)
+
+    for t in range(1, MAX_SECOND + 1):
+
         all_yellow = True
-
-        for i in range(L):
+        for i in range(len(signals)):
             idx = (t - 1) % periods[i]
-            if board[i][idx] == 0:
+            if yellow_board[i][idx] != 1:
                 all_yellow = False
                 break
 
@@ -41,14 +32,3 @@ def solution(signals):
             return t
 
     return -1
-
-
-signal_lst = [
-    [[2, 1, 2], [5, 1, 1]],
-    [[2, 3, 2], [3, 1, 3], [2, 1, 1]],
-    [[3, 3, 3], [5, 4, 2], [2, 1, 2]],
-    [[1, 1, 4], [2, 1, 3], [3, 1, 2], [4, 1, 1]]
-]
-
-for s in signal_lst:
-    print(solution(s))
