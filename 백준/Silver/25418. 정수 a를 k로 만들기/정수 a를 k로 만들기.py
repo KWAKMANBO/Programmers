@@ -1,21 +1,27 @@
+from collections import deque
 import sys
 
 input = sys.stdin.readline
 
 A, K = map(int, input().split())
-
-dp = [0] * (K + 1)
-
-for i in range(A + 1, K + 1):
-    if i < A * 2:
-        dp[i] = dp[i - 1] + 1
-    elif i == 2 * A:
-        dp[i] = 1
-    else:
-        if i % 2 == 0:
-            dp[i] = min(dp[i - 1] + 1, dp[i // 2] + 1)
-        else:
-            dp[i] = dp[i - 1] + 1
+visited = [0] * (K + 1)
 
 
-print(dp[K])
+def bfs(start):
+    # (현재 값, 연산 횟수) 튜플로 저장
+    dq = deque([(start, 0)])
+    visited[start] = 1
+
+    while dq:
+        n = dq.popleft()
+        if n[0] == K:
+            return n[1]
+        for top in (n[0] + 1, n[0] * 2):
+            if top > K:
+                continue
+            if visited[top] == 0 and top <= K:
+                visited[n[0]] = 1
+                dq.append((top, n[1] + 1))
+
+
+print(bfs(A))
