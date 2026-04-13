@@ -18,7 +18,6 @@ def solution(files):
         number = int(f[num_s:num_e])
         tail = f[num_e:]
 
-        print(f" head : {head}, number : {number}, tail : {tail}")
         f_lst.append([head, number, tail, f])
     f_lst.sort(key=lambda x: (x[0], x[1]))
 
