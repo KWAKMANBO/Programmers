@@ -2,12 +2,6 @@ def solution(m, n, board):
     answer = 0
     board = [list(b) for b in board]
 
-    def view(board):
-        for b in board:
-            for i in b:
-                print(i, end=" ")
-            print()
-
     def check(si, sj):
         tmp = set()
         for di, dj in ((0, 0), (1, 0), (0, 1), (1, 1)):
