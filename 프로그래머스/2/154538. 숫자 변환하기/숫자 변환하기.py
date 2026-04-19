@@ -10,7 +10,7 @@ def solution(x, y, n):
             return cnt
             break
 
-        if tmp > x:
+        if tmp > x :
             if tmp % 2 == 0:
                 queue.append((tmp // 2, cnt + 1))
             if tmp % 3 == 0:
