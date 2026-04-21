@@ -1,18 +1,16 @@
 def solution(numbers):
     answer = []
-
     for n in numbers:
         if n % 2 == 0:
-            answer.append(n + 1)
+            answer.append(n+1)
         else:
-            tmp = bin(n)[2:]
-            tmp = tmp.zfill(len(tmp) + 1)
-            for i in range(len(tmp) - 1, -1, -1):
-
-                if tmp[i - 1: i + 1] == "01":
-                    #print(f"tmp[{i - 1} : {i + 1}] : {tmp[i - 1: i + 1]}")
-                    tmp = tmp[:i-1] + "10" + tmp[i+1:]
+            bin_n = bin(n)[2:][::-1]
+            bin_n = bin_n + "0"
+            for i in range(len(bin_n)):
+                if bin_n[i:i+2] == "10":
+                    bin_n = bin_n[:i] + "01" + bin_n[i+2:]
                     break
-            answer.append(int(tmp,2))
+            answer.append(int(bin_n[::-1],2))
+
 
     return answer
