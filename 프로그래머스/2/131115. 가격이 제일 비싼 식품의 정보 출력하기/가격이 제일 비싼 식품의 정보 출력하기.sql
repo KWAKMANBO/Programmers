@@ -1,7 +1,4 @@
--- 코드를 입력하세요
-SELECT *
-FROM (
-    SELECT *
-    FROM FOOD_PRODUCT 
-    ORDER BY PRICE DESC) AS F
-LIMIT 1;
+select * 
+from food_product
+order by price desc
+limit 1; 
