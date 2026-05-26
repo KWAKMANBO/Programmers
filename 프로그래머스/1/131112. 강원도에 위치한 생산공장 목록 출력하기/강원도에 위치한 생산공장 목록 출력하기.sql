@@ -1,3 +1,4 @@
-SELECT FACTORY_ID, FACTORY_NAME, ADDRESS
-FROM FOOD_FACTORY
-WHERE ADDRESS LIKE '%강원도%'
+select factory_id, factory_name, address
+from food_factory
+where  address like '강원도%'
+order by factory_id asc
