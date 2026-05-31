@@ -1,1 +1,3 @@
-select count(*) as FISH_COUNT from FISH_INFO where TIME >= '2021/01/01' and TIME <= '2021/12/31' ;
+select count(*)
+from fish_info
+where time like '2021%'
