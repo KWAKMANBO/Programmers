@@ -1,4 +1,4 @@
-SELECT ID, LENGTH 
-FROM FISH_INFO 
-ORDER BY IFNULL(LENGTH,10) DESC, ID ASC
-LIMIT 10
+select id ,ifnull(length, 10)
+from fish_info
+order by length desc, id asc
+limit 10
