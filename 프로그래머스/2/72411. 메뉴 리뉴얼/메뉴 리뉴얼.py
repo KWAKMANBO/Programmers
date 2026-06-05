@@ -8,20 +8,18 @@ def solution(orders, course):
     for c in course:
         lst = []
         for o in orders:
-            for co in combinations(o,c):
-                tmp = list(co)
-                tmp.sort()
-                lst.append("".join(tmp))
-        cnt = Counter(lst)
+            lst.extend(combinations(sorted(o), c))
 
-        t = cnt.most_common(1)[0][1] if len(cnt) > 0 else -1
-        if t == -1:
+        most_ordered = Counter(lst).most_common()
+        if len(most_ordered) < 1:
             continue
-            
-        for l in set(lst):
+        most_value = most_ordered[0][1]
+        tmp = []
+        for k,v in most_ordered:
+            if v == most_value and v > 1:
+                tmp.append("".join(k))
+        answer.extend(tmp)
 
-            if cnt[l] == t and cnt[l] > 1:
-                answer.append(l)
 
     answer.sort()
 
