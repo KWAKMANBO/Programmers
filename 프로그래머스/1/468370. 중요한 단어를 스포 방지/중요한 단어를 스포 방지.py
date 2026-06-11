@@ -1,48 +1,35 @@
 def solution(message, spoiler_ranges):
     answer = 0
-    no_spoiler_ranges = []
-    no_spoiler_words = []
     spoiler_words = []
-    # no_spoiler_ranges를 담을 떄 사용할 idx
+    no_spoiler_range = []
     idx = 0
+    for sp in spoiler_ranges:
+        s, e = sp[0], sp[1]
+        while 0 < s and message[s] != " ":
+            s -= 1
+        while e < len(message) and message[e] != " ":
+            e += 1
+        # print(f"s: {s}, e: {e}")
+        w = message[s:e]
+        # print(w.split())
+        spoiler_words.extend(w.split())
 
-    # for m in range(len(message)):
-    #     print(f"{m} : {message[m]}")
-
-    for i in spoiler_ranges:
-        start, end = i[0], i[1]
-
-        # spoiler range의 시작점 찾기
-        while True:
-            if message[start] == " " or start == 0:
-                break
-            start -= 1
-
-        while True:
-            if message[end] == " " or end == len(message) - 1:
-                if end == len(message) - 1:
-                    end += 1
-                break
-            end += 1
-
-        for w in message[start:end].strip().split():
-            spoiler_words.append(w)
-
-        if start != 0:
-            no_spoiler_ranges.append([idx, start + 1])
-        idx = end
+        if s != 0:
+            no_spoiler_range.append([idx, s + 1])
+        idx = e
 
     if idx != len(message):
-        no_spoiler_ranges.append([idx, len(message)])
-    
-    for s, e in no_spoiler_ranges:
-        tmp = message[s:e].strip().split()
+        no_spoiler_range.append([idx, len(message)])
+
+    no_spoiler_words = []
+    for s, e, in no_spoiler_range:
+        tmp = message[s:e].split()
         for t in tmp:
             no_spoiler_words.append(t)
+
 
     spoiler_words = set(spoiler_words)
     for sw in spoiler_words:
         if sw not in no_spoiler_words:
             answer += 1
-            
     return answer
