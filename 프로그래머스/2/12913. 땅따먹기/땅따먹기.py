@@ -1,13 +1,15 @@
 def solution(land):
-    answer = 0
+    dp = land
 
-    for i in range(1, len(land)):
-        for j in range(4):
-            lst = []
-            for k in range(4):
-                if j != k:
-                    lst.append(land[i][j] + land[i - 1][k])
-                else:
-                    lst.append(land[i][j])
-            land[i][j] = max(lst)
-    return max(land[-1])
+    for i in range(1, len(dp)):
+        for j in range(len(dp[0])):
+            tmp = []
+            for k in range(len(dp[0])):
+                if k != j:
+                    tmp.append(dp[i-1][k])
+
+            dp[i][j] = max(tmp) + land[i][j]
+
+
+
+    return max(dp[-1])
