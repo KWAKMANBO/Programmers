@@ -1,6 +1,5 @@
--- 코드를 입력하세요
-SELECT B.CATEGORY, SUM(BS.SALES) AS TOTAL_SALES
-FROM BOOK AS B JOIN BOOK_SALES AS BS ON B.BOOK_ID = BS.BOOK_ID
-WHERE BS.SALES_DATE LIKE '%2022-01%'
-GROUP BY B.CATEGORY
-ORDER BY B.CATEGORY ASC;
+select category, sum(sales) as total_sales
+from book as b join book_sales as bs on b.book_id = bs.book_id
+where sales_date like '2022-01%'
+group by category
+order by category asc
