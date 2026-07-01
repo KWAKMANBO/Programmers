@@ -1,7 +1,10 @@
--- 코드를 작성해주세요
-# SELECT HG.SCORE,HD.DEPT_NAME_KR AS EMP_NO, HE.EMP_NAME, HE.POSITION, HE.EMAIL
-SELECT SUM(HG.SCORE) AS SCORE, HG.EMP_NO, HE.EMP_NAME, HE.POSITION,HE.EMAIL
-FROM HR_DEPARTMENT AS HD JOIN HR_EMPLOYEES AS HE ON HD.DEPT_ID = HE.DEPT_ID JOIN HR_GRADE AS HG ON HE.EMP_NO = HG.EMP_NO
-GROUP BY HG.EMP_NO 
-ORDER BY SCORE DESC
-LIMIT 1;
+select sum(hg.score) score, he.emp_no, he.emp_name, he.position, he.email
+from 
+    hr_department hd join hr_employees he on hd.dept_id = he.dept_id 
+    join hr_grade hg on he.emp_no = hg.emp_no
+# where he.position = '팀원'
+group by he.emp_no
+order by score desc
+limit 1
+
+
