@@ -1,10 +1,5 @@
-#SELECT E1.ID, E1.GENOTYPE
-SELECT E1.ID, E1.GENOTYPE, E2.GENOTYPE AS PARENT_GENOTYPE
-FROM ECOLI_DATA AS E1, ECOLI_DATA AS E2
-WHERE 
-1 = 1
-AND 
-E1.PARENT_ID = E2.ID
-AND
-E1.GENOTYPE & E2.GENOTYPE = E2.GENOTYPE
-ORDER BY E1.ID
+-- 코드를 작성해주세요
+select a.id, a.genotype, b.genotype
+from ecoli_data a left join ecoli_data b on a.parent_id = b.id
+where a.genotype & b.genotype = b.genotype
+order by a.id
