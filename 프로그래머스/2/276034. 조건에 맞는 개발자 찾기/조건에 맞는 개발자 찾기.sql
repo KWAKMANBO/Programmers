@@ -1,16 +1,17 @@
 -- 코드를 작성해주세요
-SELECT D.ID, D.EMAIL, D.FIRST_NAME, D.LAST_NAME
-FROM DEVELOPERS AS D
-WHERE 
-1=1
-AND
-D.SKILL_CODE & (
-SELECT CODE
-FROM SKILLCODES
-WHERE NAME = 'Python')
-OR
-D.SKILL_CODE & (
-SELECT CODE
-FROM SKILLCODES
-WHERE NAME = 'C#')
-ORDER BY D.ID;
+select id, email, first_name,last_name
+from developers
+where skill_code &
+    (
+        select code 
+        from skillcodes
+        where name = "C#"
+    )
+    or
+    skill_code &
+    (
+        select code 
+        from skillcodes
+        where name = "Python"
+    )
+order by id
