@@ -1,6 +1,4 @@
--- 코드를 작성해주세요
-SELECT COUNT(*) AS FISH_COUNT,FNI.FISH_NAME
-FROM FISH_INFO AS FI 
-INNER JOIN FISH_NAME_INFO AS FNI ON FI.FISH_TYPE = FNI.FISH_TYPE
-GROUP BY FI.FISH_TYPE, FNI.FISH_NAME
-ORDER BY COUNT(*) DESC;
+select count(*) fish_count, fish_name
+from fish_info fi join fish_name_info fn on fi.fish_type = fn.fish_type
+group by fi.fish_type
+order by fish_count desc
