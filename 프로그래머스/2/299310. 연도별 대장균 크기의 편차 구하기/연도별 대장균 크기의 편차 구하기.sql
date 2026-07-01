@@ -1,11 +1,11 @@
--- 코드를 작성해주세요
-
-#SELECT *
-SELECT YEAR, ABS(M - E.SIZE_OF_COLONY) AS YEAR_DEV,E.ID
-FROM ECOLI_DATA AS E 
-    LEFT JOIN (
-        SELECT YEAR(DIFFERENTIATION_DATE) AS YEAR, MAX(SIZE_OF_COLONY) AS M
-        FROM ECOLI_DATA
-        GROUP BY YEAR(DIFFERENTIATION_DATE)
-    ) AS Y ON YEAR(E.DIFFERENTIATION_DATE) = Y.YEAR
-ORDER BY YEAR(E.DIFFERENTIATION_DATE) ASC  ,ABS(M - E.SIZE_OF_COLONY) ASC
+select year, m - e.size_of_colony as year_dev, e.id  
+from ecoli_data e 
+join 
+(
+    select 
+        year(DIFFERENTIATION_DATE) as year, 
+        max(size_of_colony) as m
+    from ecoli_data
+    group by year(DIFFERENTIATION_DATE)
+) as y on year(e.DIFFERENTIATION_DATE) = y.year
+order by year(DIFFERENTIATION_DATE) asc, year_dev asc 
