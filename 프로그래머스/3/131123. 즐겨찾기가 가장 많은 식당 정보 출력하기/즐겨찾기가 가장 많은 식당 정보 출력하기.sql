@@ -1,7 +1,7 @@
-SELECT FOOD_TYPE, REST_ID, REST_NAME, FAVORITES
-FROM REST_INFO
-WHERE FAVORITES IN (SELECT MAX(FAVORITES)
-                              FROM REST_INFO
-                              GROUP BY FOOD_TYPE)
-GROUP BY FOOD_TYPE
-ORDER BY FOOD_TYPE DESC;
+select food_type, rest_id, rest_name, favorites
+from rest_info
+where favorites in (select max(favorites)
+                  from rest_info
+                  group by food_type)
+group by food_type
+order by food_type desc
