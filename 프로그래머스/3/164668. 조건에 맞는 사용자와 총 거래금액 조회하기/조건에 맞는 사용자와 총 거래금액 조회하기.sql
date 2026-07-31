@@ -1,10 +1,13 @@
--- 코드를 입력하세요
-SELECT UGU.USER_ID, UGU.NICKNAME, SUM(UGB.PRICE) AS TOTAL_SALES
-FROM USED_GOODS_BOARD AS UGB JOIN USED_GOODS_USER AS UGU ON UGB.WRITER_ID = UGU.USER_ID
-WHERE 1= 1
-AND
-UGB.STATUS = 'DONE' 
-GROUP BY UGU.USER_ID
-HAVING SUM(UGB.PRICE) >= 700000
-ORDER BY SUM(UGB.PRICE) ASC
+select ub.writer_id user_id, uu.nickname nickname, sum(price) total_sales
+from used_goods_board ub join used_goods_user uu on ub.writer_id = uu.user_id
+where ub.status = 'DONE'
+group by ub.writer_id
+having sum(price) >= 700000
+order by sum(price) asc
+
+# select ub.writer_id user_id, uu.nickname nickname, ub.price total_sales
+# from used_goods_board ub join used_goods_user uu on ub.writer_id = uu.user_id
+# where ub.status = 'DONE' 
+# and ub.price >= 700000
+# order by ub.price asc 
 
