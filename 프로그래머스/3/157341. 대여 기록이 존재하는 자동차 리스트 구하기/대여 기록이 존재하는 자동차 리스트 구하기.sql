@@ -1,12 +1,5 @@
--- 코드를 입력하세요
-SELECT DISTINCT A.CAR_ID
-FROM CAR_RENTAL_COMPANY_CAR AS A 
-JOIN
-CAR_RENTAL_COMPANY_RENTAL_HISTORY AS B
-ON A.CAR_ID = B.CAR_ID
-WHERE 1=1
-AND
-A.CAR_TYPE ='세단' 
-AND
-B.START_DATE LIKE '%2022-10%'
-ORDER BY A.CAR_ID DESC;
+select ch.car_id
+from car_rental_company_car cr join car_rental_company_rental_history ch on cr.car_id = ch.car_id
+where cr.car_type = '세단' and month(start_date) = 10
+group by car_id
+order by ch.car_id desc
