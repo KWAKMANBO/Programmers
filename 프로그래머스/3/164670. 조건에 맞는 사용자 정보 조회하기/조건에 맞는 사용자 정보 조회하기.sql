@@ -1,6 +1,7 @@
--- 코드를 입력하세요
-SELECT B.USER_ID, B.NICKNAME, CONCAT_WS(' ',CITY,B.STREET_ADDRESS1, B.STREET_ADDRESS2) AS '전체주소', CONCAT(SUBSTRING(B.TLNO, 1, 3), '-', SUBSTRING(B.TLNO, 4, 4), '-', SUBSTRING(B.TLNO, 8)) AS 전화번호
-FROM USED_GOODS_BOARD AS A JOIN USED_GOODS_USER AS B ON A.WRITER_ID = B.USER_ID
-GROUP BY 1
-HAVING COUNT(A.WRITER_ID) >= 3
-ORDER BY 1 DESC
+select uu.user_id, uu.nickname, concat(uu.city, " ", uu.street_address1," ", uu.street_address2) 전체주소,
+    concat(substring(uu.tlno,1,3),"-", substring(uu.tlno,4,4),"-", substring(uu.tlno,8,4) ) 전화번호
+from used_goods_user uu join used_goods_board ub on uu.user_id = ub.writer_id
+group by uu.user_id
+having count(*) >= 3
+order by uu.user_id desc
+
