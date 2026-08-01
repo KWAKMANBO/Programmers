@@ -41,4 +41,3 @@ def solution(places):
 
     return answer
 
-
