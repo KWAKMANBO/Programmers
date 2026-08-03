@@ -1,8 +1,11 @@
--- 코드를 입력하세요
-SELECT CONCAT('/home/grep/src/',UGB.BOARD_ID,'/',FILE_ID,FILE_NAME,FILE_EXT) AS FILE_PATH
-FROM USED_GOODS_BOARD AS UGB JOIN USED_GOODS_FILE AS UGF ON UGB.BOARD_ID = UGF.BOARD_ID
-WHERE UGB.BOARD_ID = (SELECT BOARD_ID
-                      FROM USED_GOODS_BOARD
-                     ORDER BY VIEWS DESC
-                     LIMIT 1)
-ORDER BY FILE_ID DESC
+select concat('/home/grep/src/', ub.board_id,'/',uf.file_id,uf.file_name,uf.file_ext) file_path
+from used_goods_board ub join used_goods_file uf on  ub.board_id = uf.board_id
+where ub.board_id = (select board_id
+                   from used_goods_board
+                     order by views desc
+                     limit 1
+                    )
+order by  views desc, uf.file_id desc
+
+
+                    
