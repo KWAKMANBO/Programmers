@@ -1,54 +1,66 @@
 def solution(n, info):
+    answer = [-1] 
     max_gap = 0
-    answer = [-1]
 
-    def find_winner_and_calculate_point_diff(apeach, ryan):
-        a, r = 0, 0
+    # 승자 확인 및 점수 차이 계산
+    def get_winner_and_diff(ap, ry):
+        a, r = 0, 0,
+
         for i in range(11):
-            if apeach[i] == 0 and ryan[i] == 0:
+            if ap[i] == 0 and ry[i] == 0:
                 continue
-            if apeach[i] >= ryan[i]:
-                a += 10 - i
-            else:
+
+            if ry[i] > ap[i]:
                 r += 10 - i
-        return (True, r-a) if r > a else (False, a-r)
+            else:
+                a += 10 - i
+        return r > a, r - a
 
-    def compare_list(a, b):
+    # 배열 비교 사용할 배열 결정
+    def compare_list(current, new):
         for i in range(10, -1, -1):
-            if a[i] > b[i]:          # ← 수정
-                return a
-            elif a[i] < b[i]:
-                return b
-        return b
+            if current[i] > new[i]:
+                return current
+            elif current[i] < new[i]:
+                return new
 
-    def dfs(index, arrows_left, ryan):
-        nonlocal max_gap, answer
+        return current
+
+    # 백트랙킹(DFS)
+    def dfs(index, arrow_left, ryan):
+        nonlocal answer, max_gap
+
         if index == 10:
-            ryan[10] = arrows_left
-            winner, gap = find_winner_and_calculate_point_diff(info, ryan)
+            ryan[10] = arrow_left
+            winner, gap = get_winner_and_diff(info, ryan)
             if winner and gap > max_gap:
                 max_gap = gap
                 answer = ryan[:]
             elif winner and gap == max_gap:
-                answer = compare_list(ryan[:], answer)   # ← 수정
+                answer = compare_list(answer, ryan[:])
             ryan[10] = 0
             return
-
-        if arrows_left == 0:
-            winner, gap = find_winner_and_calculate_point_diff(info, ryan)
+        if arrow_left == 0:
+            winner, gap = get_winner_and_diff(info, ryan)
             if winner and gap > max_gap:
                 max_gap = gap
                 answer = ryan[:]
             elif winner and gap == max_gap:
-                answer = compare_list(ryan[:], answer)   # ← 수정
+                answer = compare_list(answer, ryan[:])
+
             return
 
-        need = info[index] + 1
-        dfs(index + 1, arrows_left, ryan)
-        if arrows_left >= need:
-            ryan[index] = need
-            dfs(index + 1, arrows_left - need, ryan)
+        needed = info[index] + 1
+        dfs(index + 1, arrow_left, ryan)
+
+        if arrow_left >= needed:
+            ryan[index] = needed
+            dfs(index + 1, arrow_left - needed, ryan)
             ryan[index] = 0
 
-    dfs(0, n, [0]*11)
+
+    dfs(0, n, [0] * 11)
+
     return answer
+
+
