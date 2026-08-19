@@ -1,28 +1,21 @@
+from collections import Counter
+
+
 def solution(topping):
-    l = {}
-    r = {}
-
     answer = 0
+    l = {}
+    r = Counter(topping)
 
-    # l 에 모든 토핑 갯수를 저장해서 넣어두기
-    for i in topping:
-        if i in l:
-            l[i] += 1
+    for t in topping:
+        if t not in l:
+            l[t] = 1
         else:
-            l[i] = 1
+            l[t] += 1
 
-    for i in range(len(topping)):
-        if topping[i] in r:
-            r[topping[i]] += 1
-        else:
-            r[topping[i]] = 1
+        r[t] -= 1
+        if r[t] == 0:
+            del r[t]
 
-        l[topping[i]] -= 1
-
-        if l[topping[i]] == 0:
-            del (l[topping[i]])
-
-        if len(l) == len(r):
+        if len(r) == len(l):
             answer += 1
-
     return answer
